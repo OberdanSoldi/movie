@@ -25,16 +25,10 @@ class MovieService(private val movieRepository: MovieRepository, private val mov
     }
 
     fun update(movieRequest: MovieRequest, id: Long): MovieResponse {
-        val sim = movieRepository.findById(id).map { movieMapper.toRequest(it) }
-        sim.map {
-            it.name = movieRequest.name
-            it.rating = movieRequest.rating
-            movieRepository.save(movieMapper.toEntity(it))
-        }
         return movieRepository.findById(id).map {
             it.name = movieRequest.name
             it.rating = movieRequest.rating
-            movieMapper.toResponse(movieRepository.save(it))
+            return@map movieMapper.toResponse(movieRepository.save(it))
         }.orElseThrow { MovieNotFoundException() }
     }
 
