@@ -1,0 +1,13 @@
+version: '3.7'
+services:
+  movie-database:
+    image: postgres:latest
+
+    environment:
+      POSTGRES_PASSWORD: admin
+      POSTGRES_USER: admin
+      POSTGRES_DB: movie-db
+    container_name: movie-database
+
+    ports:
+      - "5432:5432"
